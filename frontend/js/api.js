@@ -1,59 +1,39 @@
-/* =========================================
-   POWER SCHOOL - API
-========================================= */
+const API_BASE_URL = "http://localhost:8080/api";
 
-const API_BASE_URL =
-    "http://localhost:8080/api";
+async function apiRequest(endpoint, options = {}) {
+    const token = sessionStorage.getItem("ps_token");
 
+    const headers = {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+    };
 
-async function apiRequest(
-    endpoint,
-    options = {}
-) {
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
 
-    const response = await fetch(
-        `${API_BASE_URL}${endpoint}`,
-        {
-            ...options,
-
-            headers: {
-                "Content-Type":
-                    "application/json",
-
-                ...(options.headers || {})
-            }
-        }
-    );
-
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers
+    });
 
     let data = null;
 
-
     try {
-
         data = await response.json();
-
     } catch {
-
         data = null;
-
     }
 
-
     if (!response.ok) {
+        const error = new Error(
+            data?.message || `Request failed (${response.status})`
+        );
 
-        const error =
-            new Error(
-                data?.message ||
-                `Request failed (${response.status})`
-            );
-
-        error.status =
-            response.status;
+        error.status = response.status;
 
         throw error;
     }
-
 
     return data;
 }
