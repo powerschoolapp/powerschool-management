@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Power School Management System"
+    >
+
+    <title>Power School | Login</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <!-- Branding -->
+        <section class="login-brand">
+
+            <div class="brand-content">
+
+                <div class="school-logo">
+    <img
+        src="assets/logo/POWER SCHOOL FINAL LOGO.png"
+        alt="Power School Logo"
+    >
+</div>
+
+                <h1>POWER SCHOOL</h1>
+
+                <p>
+                    School Management System
+                </p>
+
+                <div class="brand-divider"></div>
+
+                <p class="brand-description">
+                    A secure and connected platform for
+                    administrators, teachers, and students.
+                </p>
+
+            </div>
+
+            <div class="brand-footer">
+                <span>© 2026 Power School</span>
+                <span>Management System</span>
+            </div>
+
+        </section>
+
+
+        <!-- Login -->
+        <section class="login-section">
+
+            <div class="login-card">
+
+                <!-- Mobile logo -->
+                <div class="mobile-logo">
+    <div class="school-logo small">
+        <img
+            src="assets/logo/POWER SCHOOL FINAL LOGO.png"
+            alt="Power School Logo"
+        >
+    </div>
+</div>
+
+
+                <!-- Header -->
+                <div class="login-header">
+
+                    <p class="welcome-text">
+                        Welcome back
+                    </p>
+
+                    <h2>
+                        Sign in to your account
+                    </h2>
+
+                    <p>
+                        Enter your credentials to continue.
+                    </p>
+
+                </div>
+
+
+                <!-- Login form -->
+                <form
+                    id="loginForm"
+                    class="login-form"
+                    novalidate
+                >
+
+                    <!-- Username -->
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                maxlength="50"
+                                required
+                            >
+
+                        </div>
+
+                        <small
+                            id="usernameError"
+                            class="field-error"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Show password"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                        <small
+                            id="passwordError"
+                            class="field-error"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- Login error -->
+                    <div
+                        id="loginError"
+                        class="login-error"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <!-- Login button -->
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="login-button"
+                    >
+
+                        <span id="loginButtonText">
+                            Sign In
+                        </span>
+
+                        <span
+                            id="loginSpinner"
+                            class="spinner"
+                            aria-hidden="true"
+                        ></span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Footer -->
+                <div class="login-footer">
+
+                    <p>
+                        Secure access for authorized users only.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+</html>
