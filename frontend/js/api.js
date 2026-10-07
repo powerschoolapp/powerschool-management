@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL = "https://powerschool-backend.onrender.com/api";
 
 async function apiRequest(endpoint, options = {}) {
     const token = sessionStorage.getItem("ps_token");
