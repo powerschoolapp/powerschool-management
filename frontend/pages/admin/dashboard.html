@@ -2,34 +2,639 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Admin Dashboard | Power School</title>
 
-    <title>
-        Power School | Admin Dashboard
-    </title>
-
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/admin-dashboard.css">
 </head>
 
 <body>
 
-    <main>
+<div class="dashboard-layout">
 
-        <h1>
-            Admin Dashboard
-        </h1>
+    <!-- =========================================
+         MOBILE OVERLAY
+    ========================================== -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <p>
-            Authentication successful.
-        </p>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Brand -->
+        <div class="sidebar-header">
+
+            <div class="school-brand">
+
+                <div class="school-logo-wrapper">
+                    <img
+                        src="../../assets/logo/POWER SCHOOL FINAL LOGO.png"
+                        alt="Power School Logo"
+                        class="school-logo"
+                    >
+                </div>
+
+                <div class="school-brand-text">
+                    <h2>Power School</h2>
+                    <span>Management System</span>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="sidebar-close"
+                id="sidebarClose"
+                aria-label="Close navigation"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-navigation">
+
+            <p class="navigation-title">MAIN MENU</p>
+
+            <a href="dashboard.html" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Students</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Teachers</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>Classes &amp; Sections</span>
+            </a>
+
+
+            <p class="navigation-title navigation-title-spaced">
+                ACADEMICS
+            </p>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">✓</span>
+                <span>Attendance</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">₹</span>
+                <span>Fees</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Marks</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Homework</span>
+            </a>
+
+
+            <p class="navigation-title navigation-title-spaced">
+                MANAGEMENT
+            </p>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▢</span>
+                <span>Leave Requests</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">◈</span>
+                <span>Announcements</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▥</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Profile</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Bottom -->
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-date">
+
+                <span class="date-icon">◷</span>
+
+                <div>
+                    <strong id="currentDay">
+                        Loading...
+                    </strong>
+
+                    <small id="currentDate">
+                        Loading...
+                    </small>
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+            >
+                <span>↪</span>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+    <main class="main-content">
+
+
+        <!-- =====================================
+             TOP BAR
+        ====================================== -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    aria-label="Open navigation"
+                >
+                    ☰
+                </button>
+
+                <div class="topbar-title">
+
+                    <span>POWER SCHOOL</span>
+
+                    <strong>
+                        Admin Portal
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    type="button"
+                    class="icon-button"
+                    title="Notifications"
+                    aria-label="Notifications"
+                >
+                    ♢
+
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="topbar-divider"></div>
+
+
+                <div class="user-mini-profile">
+
+                    <div
+                        class="user-avatar"
+                        id="userAvatar"
+                    >
+                        A
+                    </div>
+
+                    <div class="user-mini-info">
+
+                        <strong id="topbarUserName">
+                            Administrator
+                        </strong>
+
+                        <span>
+                            Administrator
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             PAGE CONTENT
+        ====================================== -->
+        <div class="page-content">
+
+
+            <!-- =================================
+                 WELCOME SECTION
+            ================================== -->
+            <section class="welcome-section">
+
+                <div>
+
+                    <p class="page-label">
+                        ADMIN DASHBOARD
+                    </p>
+
+                    <h1>
+                        Welcome back,
+                        <span id="welcomeUserName">
+                            Administrator
+                        </span>
+                    </h1>
+
+                    <p class="welcome-description">
+                        Here's an overview of your school's
+                        activities and management tools.
+                    </p>
+
+                </div>
+
+
+                <div class="welcome-date-card">
+
+                    <span>Today</span>
+
+                    <strong id="welcomeDate">
+                        Loading...
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 SCHOOL OVERVIEW
+            ================================== -->
+            <section class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>
+                            School Overview
+                        </h2>
+
+                        <p>
+                            Key information from the school system.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-grid">
+
+
+                    <!-- Students -->
+                    <article class="overview-card">
+
+                        <div class="overview-card-icon students-icon">
+                            ♙
+                        </div>
+
+                        <div class="overview-card-content">
+
+                            <span>
+                                Total Students
+                            </span>
+
+                            <strong class="data-placeholder">
+                                --
+                            </strong>
+
+                            <small>
+                                Awaiting live data
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Teachers -->
+                    <article class="overview-card">
+
+                        <div class="overview-card-icon teachers-icon">
+                            ♙
+                        </div>
+
+                        <div class="overview-card-content">
+
+                            <span>
+                                Total Teachers
+                            </span>
+
+                            <strong class="data-placeholder">
+                                --
+                            </strong>
+
+                            <small>
+                                Awaiting live data
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Classes -->
+                    <article class="overview-card">
+
+                        <div class="overview-card-icon classes-icon">
+                            ▦
+                        </div>
+
+                        <div class="overview-card-content">
+
+                            <span>
+                                Classes &amp; Sections
+                            </span>
+
+                            <strong class="data-placeholder">
+                                --
+                            </strong>
+
+                            <small>
+                                Awaiting live data
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Attendance -->
+                    <article class="overview-card">
+
+                        <div class="overview-card-icon attendance-icon">
+                            ✓
+                        </div>
+
+                        <div class="overview-card-content">
+
+                            <span>
+                                Today's Attendance
+                            </span>
+
+                            <strong class="data-placeholder">
+                                --
+                            </strong>
+
+                            <small>
+                                Awaiting live data
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 QUICK ACTIONS
+            ================================== -->
+            <section class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                        <p>
+                            Frequently used school management tools.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions-grid">
+
+
+                    <button
+                        type="button"
+                        class="quick-action-card"
+                    >
+
+                        <span class="quick-action-icon">
+                            +
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                Add Student
+                            </strong>
+
+                            <small>
+                                Register a new student
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="quick-action-card"
+                    >
+
+                        <span class="quick-action-icon">
+                            +
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                Add Teacher
+                            </strong>
+
+                            <small>
+                                Create teacher profile
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="quick-action-card"
+                    >
+
+                        <span class="quick-action-icon">
+                            ▦
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                Create Class
+                            </strong>
+
+                            <small>
+                                Manage classes and sections
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="quick-action-card"
+                    >
+
+                        <span class="quick-action-icon">
+                            ◈
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                Announcement
+                            </strong>
+
+                            <small>
+                                Publish school updates
+                            </small>
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 RECENT ACTIVITIES
+            ================================== -->
+            <section class="dashboard-panel recent-activities-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Activities
+                        </h2>
+
+                        <p>
+                            Latest actions in the school system.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="text-button"
+                    >
+                        View All
+                    </button>
+
+                </div>
+
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        ◷
+                    </div>
+
+                    <h3>
+                        No recent activities
+                    </h3>
+
+                    <p>
+                        Activity information will appear here once
+                        the school system starts receiving data.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 QUOTE
+            ================================== -->
+            <section class="quote-card">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+                <div>
+
+                    <p>
+                        Great schools are built by great people,
+                        supported by great systems.
+                    </p>
+
+                    <span>
+                        Power School Management
+                    </span>
+
+                </div>
+
+            </section>
+
+
+        </div>
 
     </main>
 
-</body>
+</div>
 
+
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-dashboard.js"></script>
+
+</body>
 </html>
