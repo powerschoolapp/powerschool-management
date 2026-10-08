@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Classes & Sections | Power School</title>
+
+    
+    
+    <link rel="stylesheet" href="../../css/admin-classes.css">
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="logo-container">
+            <img
+                src="../../assets/logo/POWER SCHOOL FINAL LOGO.png"
+                alt="Power School Logo"
+                class="sidebar-logo"
+            >
+        </div>
+
+        <div class="school-brand">
+            <h2>Power School</h2>
+            <span>Administration</span>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+        </a>
+
+
+        <a href="classes.html" class="nav-item active">
+            <span class="nav-icon">▦</span>
+            <span>Classes &amp; Sections</span>
+        </a>
+
+
+        <a href="students.html" class="nav-item">
+            <span class="nav-icon">♙</span>
+            <span>Students</span>
+        </a>
+
+
+        <a href="teachers.html" class="nav-item">
+            <span class="nav-icon">♙</span>
+            <span>Teachers</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">✓</span>
+            <span>Attendance</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">₹</span>
+            <span>Fees</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">▤</span>
+            <span>Marks</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">▣</span>
+            <span>Homework</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">◷</span>
+            <span>Leave Requests</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">▰</span>
+            <span>Announcements</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">◉</span>
+            <span>Activity Logs</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="sidebar-date">
+
+            <strong id="sidebarDay">--</strong>
+
+            <span id="sidebarDate">--</span>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="logoutButton"
+            class="logout-button"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-title">
+
+                <h1>Classes & Sections</h1>
+
+                <p>
+                    Manage school classes and their sections
+                </p>
+
+            </div>
+
+
+            <div class="topbar-school">
+                Power Public School
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+
+        <section class="page-content">
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Academic Structure</h2>
+
+                    <p>
+                        Create and manage classes and sections
+                        used by students.
+                    </p>
+
+                </div>
+
+
+                <div class="page-actions">
+
+                    <button
+                        type="button"
+                        id="addClassButton"
+                        class="primary-button"
+                    >
+                        + Add Class
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="addSectionButton"
+                        class="secondary-button"
+                    >
+                        + Add Section
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- GLOBAL MESSAGE -->
+
+            <div
+                id="pageMessage"
+                class="page-message hidden"
+                role="alert"
+            ></div>
+
+
+            <!-- =================================================
+                 CLASSES CARD
+                 ================================================= -->
+
+            <section class="content-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>Classes</h3>
+
+                        <p>
+                            All classes currently registered
+                            in the school.
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        id="classCount"
+                        class="count-badge"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <!-- Loading -->
+
+                <div
+                    id="classesLoading"
+                    class="loading-state"
+                >
+                    Loading classes...
+                </div>
+
+
+                <!-- Error -->
+
+                <div
+                    id="classesError"
+                    class="state-message error-state hidden"
+                >
+                    Unable to load classes.
+                </div>
+
+
+                <!-- Empty -->
+
+                <div
+                    id="classesEmpty"
+                    class="empty-state hidden"
+                >
+
+                    <div class="empty-icon">
+                        ▦
+                    </div>
+
+                    <h4>No classes found</h4>
+
+                    <p>
+                        Create your first school class
+                        to get started.
+                    </p>
+
+                </div>
+
+
+                <!-- Table -->
+
+                <div
+                    id="classesTableContainer"
+                    class="table-container hidden"
+                >
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Class Name</th>
+
+                            <th>Grade Level</th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody id="classesTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTIONS CARD
+                 ================================================= -->
+
+            <section class="content-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>Sections</h3>
+
+                        <p>
+                            Sections connected to their
+                            respective classes.
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        id="sectionCount"
+                        class="count-badge"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <!-- Loading -->
+
+                <div
+                    id="sectionsLoading"
+                    class="loading-state"
+                >
+                    Loading sections...
+                </div>
+
+
+                <!-- Error -->
+
+                <div
+                    id="sectionsError"
+                    class="state-message error-state hidden"
+                >
+                    Unable to load sections.
+                </div>
+
+
+                <!-- Empty -->
+
+                <div
+                    id="sectionsEmpty"
+                    class="empty-state hidden"
+                >
+
+                    <div class="empty-icon">
+                        ▤
+                    </div>
+
+                    <h4>No sections found</h4>
+
+                    <p>
+                        Create a section after creating
+                        a class.
+                    </p>
+
+                </div>
+
+
+                <!-- Table -->
+
+                <div
+                    id="sectionsTableContainer"
+                    class="table-container hidden"
+                >
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Section</th>
+
+                            <th>Class</th>
+
+                            <th>Grade Level</th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody id="sectionsTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     ADD CLASS MODAL
+     ========================================================= -->
+
+<div
+    id="classModal"
+    class="modal-overlay hidden"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h3>Add Class</h3>
+
+                <p>
+                    Create a new school class.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeClassModal"
+                class="modal-close"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="classForm">
+
+            <div class="form-group">
+
+                <label for="className">
+                    Class Name
+                </label>
+
+                <input
+                    type="text"
+                    id="className"
+                    maxlength="100"
+                    placeholder="Example: Grade 10"
+                    autocomplete="off"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="gradeLevel">
+                    Grade Level
+                </label>
+
+                <input
+                    type="text"
+                    id="gradeLevel"
+                    maxlength="50"
+                    placeholder="Example: 10"
+                    autocomplete="off"
+                    required
+                >
+
+            </div>
+
+
+            <div
+                id="classFormMessage"
+                class="form-message hidden"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelClassButton"
+                    class="secondary-button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="saveClassButton"
+                    class="primary-button"
+                >
+
+                    <span id="saveClassText">
+                        Save Class
+                    </span>
+
+                    <span
+                        id="saveClassSpinner"
+                        class="button-spinner hidden"
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ADD SECTION MODAL
+     ========================================================= -->
+
+<div
+    id="sectionModal"
+    class="modal-overlay hidden"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h3>Add Section</h3>
+
+                <p>
+                    Connect a new section to a class.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeSectionModal"
+                class="modal-close"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="sectionForm">
+
+            <div class="form-group">
+
+                <label for="sectionName">
+                    Section Name
+                </label>
+
+                <input
+                    type="text"
+                    id="sectionName"
+                    maxlength="50"
+                    placeholder="Example: A"
+                    autocomplete="off"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sectionClass">
+                    Class
+                </label>
+
+                <select
+                    id="sectionClass"
+                    required
+                >
+
+                    <option value="">
+                        Select a class
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="sectionFormMessage"
+                class="form-message hidden"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelSectionButton"
+                    class="secondary-button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="saveSectionButton"
+                    class="primary-button"
+                >
+
+                    <span id="saveSectionText">
+                        Save Section
+                    </span>
+
+                    <span
+                        id="saveSectionSpinner"
+                        class="button-spinner hidden"
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCRIPTS
+     ========================================================= -->
+
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-classes.js"></script>
+
+</body>
+</html>

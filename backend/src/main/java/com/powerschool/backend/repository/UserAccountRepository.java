@@ -16,4 +16,5 @@ public interface UserAccountRepository
     boolean existsByEmail(String email);
 
     long countByRole(UserRole role);
+    
 }
