@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Students | Power Public School</title>
+
+    <!-- Existing common styles -->
+    <link
+        rel="stylesheet"
+        href="../../css/common.css"
+    >
+
+    <!-- Students page styles -->
+    <link
+        rel="stylesheet"
+        href="../../css/admin-students.css"
+    >
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="school-logo">
+                PS
+            </div>
+
+            <div class="school-brand-text">
+                <h2>Power Public</h2>
+                <span>School</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="classes.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">▦</span>
+                <span>Classes & Sections</span>
+            </a>
+
+
+            <a
+                href="students.html"
+                class="nav-item active"
+            >
+                <span class="nav-icon">♙</span>
+                <span>Students</span>
+            </a>
+
+
+            <a
+                href="teachers.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">♙</span>
+                <span>Teachers</span>
+            </a>
+
+
+            <a
+                href="attendance.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Attendance</span>
+            </a>
+
+
+            <a
+                href="fees.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">₹</span>
+                <span>Fees</span>
+            </a>
+
+
+            <a
+                href="exams.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">▤</span>
+                <span>Exams</span>
+            </a>
+
+
+            <a
+                href="updates.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">●</span>
+                <span>Updates</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Date -->
+
+        <div class="sidebar-date">
+
+            <div
+                id="sidebarDay"
+                class="sidebar-day"
+            >
+                Monday
+            </div>
+
+            <div
+                id="sidebarDate"
+                class="sidebar-date-value"
+            >
+                08 Oct 2026
+            </div>
+
+        </div>
+
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+            type="button"
+        >
+            <span>↪</span>
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN AREA
+         ===================================================== -->
+
+    <main class="main-content">
+
+        <!-- Top bar -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    id="mobileMenuButton"
+                    class="mobile-menu-button"
+                    type="button"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div>
+
+                    <div class="topbar-school-name">
+                        Power Public School
+                    </div>
+
+                    <div class="topbar-page-name">
+                        Student Management
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+                        A
+                    </div>
+
+                    <div class="admin-profile-text">
+
+                        <strong>Administrator</strong>
+
+                        <span>Admin</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE
+             ================================================= -->
+
+        <section class="page-content">
+
+            <!-- Page heading -->
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="page-eyebrow">
+                        ADMINISTRATION
+                    </span>
+
+                    <h1>
+                        Students
+                    </h1>
+
+                    <p>
+                        Manage student records, classes, sections
+                        and account status.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="addStudentButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    <span class="button-icon">+</span>
+                    Add Student
+                </button>
+
+            </div>
+
+
+            <!-- Page message -->
+
+            <div
+                id="pageMessage"
+                class="page-message hidden"
+            ></div>
+
+
+            <!-- =================================================
+                 SUMMARY CARDS
+                 ================================================= -->
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <div class="summary-card-icon">
+                        ♙
+                    </div>
+
+                    <div>
+
+                        <span class="summary-label">
+                            Total Students
+                        </span>
+
+                        <strong
+                            id="studentCount"
+                            class="summary-value"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-card-icon active-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span class="summary-label">
+                            Active Students
+                        </span>
+
+                        <strong
+                            id="activeStudentCount"
+                            class="summary-value"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-card-icon inactive-icon">
+                        ○
+                    </div>
+
+                    <div>
+
+                        <span class="summary-label">
+                            Disabled Students
+                        </span>
+
+                        <strong
+                            id="inactiveStudentCount"
+                            class="summary-value"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 STUDENT LIST CARD
+                 ================================================= -->
+
+            <section class="content-card">
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h2>
+                            Student Directory
+                        </h2>
+
+                        <p>
+                            View and manage registered students.
+                        </p>
+
+                    </div>
+
+
+                    <div class="student-tools">
+
+                        <div class="search-box">
+
+                            <span class="search-icon">
+                                ⌕
+                            </span>
+
+                            <input
+                                id="studentSearch"
+                                type="search"
+                                placeholder="Search students..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+
+                        <select
+                            id="classFilter"
+                            class="filter-select"
+                        >
+                            <option value="">
+                                All Classes
+                            </option>
+                        </select>
+
+
+                        <select
+                            id="statusFilter"
+                            class="filter-select"
+                        >
+                            <option value="">
+                                All Status
+                            </option>
+
+                            <option value="ACTIVE">
+                                Active
+                            </option>
+
+                            <option value="DISABLED">
+                                Disabled
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Loading -->
+
+                <div
+                    id="studentsLoading"
+                    class="state-container"
+                >
+
+                    <div class="spinner"></div>
+
+                    <p>
+                        Loading students...
+                    </p>
+
+                </div>
+
+
+                <!-- Error -->
+
+                <div
+                    id="studentsError"
+                    class="state-container error-state hidden"
+                >
+
+                    <div class="state-icon">
+                        !
+                    </div>
+
+                    <h3>
+                        Unable to load students
+                    </h3>
+
+                    <p>
+                        Something went wrong while loading
+                        student records.
+                    </p>
+
+                    <button
+                        id="retryStudentsButton"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        Try Again
+                    </button>
+
+                </div>
+
+
+                <!-- Empty -->
+
+                <div
+                    id="studentsEmpty"
+                    class="state-container hidden"
+                >
+
+                    <div class="state-icon">
+                        ♙
+                    </div>
+
+                    <h3>
+                        No students found
+                    </h3>
+
+                    <p>
+                        There are no student records matching
+                        the current filters.
+                    </p>
+
+                </div>
+
+
+                <!-- Table -->
+
+                <div
+                    id="studentsTableContainer"
+                    class="table-container hidden"
+                >
+
+                    <table class="students-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Student</th>
+
+                                <th>Admission No.</th>
+
+                                <th>Class</th>
+
+                                <th>Section</th>
+
+                                <th>Parent / Guardian</th>
+
+                                <th>Status</th>
+
+                                <th>Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="studentsTableBody"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 QUOTE
+                 ================================================= -->
+
+            <div class="quote-card">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+                <p>
+                    Every student has the potential to make
+                    a difference.
+                </p>
+
+                <span>
+                    Power Public School
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     ADD / EDIT STUDENT MODAL
+     ========================================================= -->
+
+<div
+    id="studentModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card student-modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-eyebrow">
+                    STUDENT RECORD
+                </span>
+
+                <h2 id="studentModalTitle">
+                    Add Student
+                </h2>
+
+                <p id="studentModalSubtitle">
+                    Create a new student record.
+                </p>
+
+            </div>
+
+
+            <button
+                id="closeStudentModal"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="studentForm"
+            novalidate
+        >
+
+            <div
+                id="studentFormMessage"
+                class="form-message hidden"
+            ></div>
+
+
+            <!-- =============================================
+                 BASIC INFORMATION
+                 ============================================= -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    Basic Information
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="admissionNumber">
+                            Admission Number
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            id="admissionNumber"
+                            name="admissionNumber"
+                            type="text"
+                            maxlength="50"
+                            placeholder="e.g. PPS-2026-001"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="firstName">
+                            First Name
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            id="firstName"
+                            name="firstName"
+                            type="text"
+                            maxlength="80"
+                            placeholder="Enter first name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="lastName">
+                            Last Name
+                        </label>
+
+                        <input
+                            id="lastName"
+                            name="lastName"
+                            type="text"
+                            maxlength="80"
+                            placeholder="Enter last name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="dateOfBirth">
+                            Date of Birth
+                        </label>
+
+                        <input
+                            id="dateOfBirth"
+                            name="dateOfBirth"
+                            type="date"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="gender">
+                            Gender
+                        </label>
+
+                        <select
+                            id="gender"
+                            name="gender"
+                        >
+
+                            <option value="">
+                                Select gender
+                            </option>
+
+                            <option value="MALE">
+                                Male
+                            </option>
+
+                            <option value="FEMALE">
+                                Female
+                            </option>
+
+                            <option value="OTHER">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ACADEMIC INFORMATION
+                 ============================================= -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    Academic Information
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="studentClass">
+                            Class
+                            <span>*</span>
+                        </label>
+
+                        <select
+                            id="studentClass"
+                            name="studentClass"
+                            required
+                        >
+
+                            <option value="">
+                                Loading classes...
+                            </option>
+
+                        </select>
+
+                        <small>
+                            Classes are loaded from the school database.
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="studentSection">
+                            Section
+                            <span>*</span>
+                        </label>
+
+                        <select
+                            id="studentSection"
+                            name="studentSection"
+                            required
+                            disabled
+                        >
+
+                            <option value="">
+                                Select a class first
+                            </option>
+
+                        </select>
+
+                        <small>
+                            Sections are filtered by selected class.
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="admissionDate">
+                            Admission Date
+                        </label>
+
+                        <input
+                            id="admissionDate"
+                            name="admissionDate"
+                            type="date"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 PARENT / GUARDIAN
+                 ============================================= -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    Parent / Guardian Information
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="guardianName">
+                            Parent / Guardian Name
+                        </label>
+
+                        <input
+                            id="guardianName"
+                            name="guardianName"
+                            type="text"
+                            maxlength="120"
+                            placeholder="Enter guardian name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="guardianPhone">
+                            Parent / Guardian Phone
+                        </label>
+
+                        <input
+                            id="guardianPhone"
+                            name="guardianPhone"
+                            type="tel"
+                            maxlength="20"
+                            placeholder="+91 XXXXX XXXXX"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="studentEmail">
+                            Student Email
+                        </label>
+
+                        <input
+                            id="studentEmail"
+                            name="studentEmail"
+                            type="email"
+                            maxlength="150"
+                            placeholder="student@example.com"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="studentAddress">
+                            Address
+                        </label>
+
+                        <textarea
+                            id="studentAddress"
+                            name="studentAddress"
+                            rows="3"
+                            maxlength="500"
+                            placeholder="Enter student address"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 STATUS
+                 ============================================= -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    Account Status
+                </div>
+
+
+                <div class="status-option">
+
+                    <label class="switch">
+
+                        <input
+                            id="studentActive"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="switch-slider"></span>
+
+                    </label>
+
+
+                    <div>
+
+                        <strong>
+                            Student Active
+                        </strong>
+
+                        <p>
+                            Disabled students remain in the
+                            database but cannot use active
+                            student functionality.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ACTIONS
+                 ============================================= -->
+
+            <div class="modal-actions">
+
+                <button
+                    id="cancelStudentButton"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    id="saveStudentButton"
+                    class="primary-button"
+                    type="submit"
+                >
+
+                    <span id="saveStudentText">
+                        Save Student
+                    </span>
+
+                    <span
+                        id="saveStudentSpinner"
+                        class="button-spinner hidden"
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- Existing authentication/API scripts -->
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+
+<!-- Students page -->
+<script src="../../js/admin-students.js"></script>
+
+</body>
+
+</html>
