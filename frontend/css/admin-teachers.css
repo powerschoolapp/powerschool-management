@@ -560,3 +560,50 @@ tbody tr:hover { background: #f9fbff; }
   #teacherForm { grid-template-columns: 1fr; }
   .form-message, .modal-actions { grid-column: auto; }
 }
+
+
+/* API-connected teacher management additions */
+#teacherForm {
+  grid-template-columns: 1fr 1fr;
+}
+
+#passwordHelp {
+  color: #7890b2;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+#teacherForm .form-message {
+  grid-column: 1 / -1;
+}
+
+#teacherForm .modal-actions {
+  grid-column: 1 / -1;
+}
+
+#teacherTableBody .edit-button {
+  margin-right: 5px;
+}
+
+#teacherTableBody .edit-button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+#refreshTeachers:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+@media (max-width: 560px) {
+  #teacherForm {
+    grid-template-columns: 1fr;
+  }
+
+  #teacherForm .form-message,
+  #teacherForm .modal-actions {
+    grid-column: auto;
+  }
+}
+
