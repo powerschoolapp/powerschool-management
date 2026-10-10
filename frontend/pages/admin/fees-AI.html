@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Management | Power School</title>
+
+    <link rel="stylesheet" href="../../css/fees-AI.css">
+    <script src="../../js/api.js" defer></script>
+    <script src="../../js/auth.js" defer></script>
+    <script src="../../js/fees-AI.js" defer></script>
+</head>
+<body>
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../assets/logo/POWER%20SCHOOL%20FINAL%20LOGO.png"
+                 alt="Power School logo">
+            <div>
+                <h2>Power School</h2>
+                <p>Management Portal</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <a href="dashboard.html"><span>▦</span> Dashboard</a>
+            <a href="classes.html"><span>▤</span> Classes &amp; Sections</a>
+            <a href="students-AI.html"><span>♙</span> Students</a>
+            <a href="teachers-AI.html"><span>♧</span> Teachers</a>
+            <a href="attendance-AI.html"><span>◷</span> Attendance</a>
+            <a class="active" href="fees-AI.html" aria-current="page">
+                <span>₹</span> Fees Management
+            </a>
+            <a href="marks-AI.html"><span>▧</span> Marks</a>
+            <a href="homework-AI.html"><span>▣</span> Homework</a>
+            <a href="leave-requests-AI.html"><span>✉</span> Leave Requests</a>
+            <a href="announcements-AI.html"><span>◉</span> Announcements</a>
+            <a href="activity-logs-AI.html"><span>≡</span> Activity Logs</a>
+            <a href="settings-AI.html"><span>⚙</span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="date-card">
+                <span id="sidebarDay">Today</span>
+                <strong id="sidebarDate">Loading date...</strong>
+            </div>
+            <button id="logoutButton" class="logout-button" type="button">
+                ⇥ <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <div>
+                <h1>Power School</h1>
+                <p>Admin Portal / Fees Management</p>
+            </div>
+            <div class="admin-profile">
+                <div class="profile-avatar">A</div>
+                <div>
+                    <strong id="adminName">Administrator</strong>
+                    <span>School Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">FINANCE &amp; ACCOUNTS</p>
+                    <h2>Fees Management</h2>
+                    <p>Manage student fees, payments and outstanding balances.</p>
+                </div>
+                <div class="heading-actions">
+                    <button class="button button-secondary" id="exportButton"
+                            type="button">Export CSV</button>
+                    <button class="button button-primary" id="recordPaymentButton"
+                            type="button">+ Record Payment</button>
+                </div>
+            </div>
+
+            <div id="pageMessage" class="page-message hidden" role="status"></div>
+
+            <section class="summary-grid" aria-label="Fee summary">
+                <article class="summary-card">
+                    <div class="summary-icon blue">₹</div>
+                    <div>
+                        <p>Total Fees</p>
+                        <h3 id="totalFees">—</h3>
+                        <span>Fees assigned</span>
+                    </div>
+                </article>
+                <article class="summary-card">
+                    <div class="summary-icon green">✓</div>
+                    <div>
+                        <p>Collected</p>
+                        <h3 id="collectedFees">—</h3>
+                        <span>Payments received</span>
+                    </div>
+                </article>
+                <article class="summary-card">
+                    <div class="summary-icon orange">◷</div>
+                    <div>
+                        <p>Outstanding</p>
+                        <h3 id="pendingFees">—</h3>
+                        <span>Amount remaining</span>
+                    </div>
+                </article>
+                <article class="summary-card">
+                    <div class="summary-icon red">!</div>
+                    <div>
+                        <p>Overdue</p>
+                        <h3 id="overdueFees">—</h3>
+                        <span>Past due date</span>
+                    </div>
+                </article>
+            </section>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Student Fee Records</h3>
+                        <p>Search and review individual student fee balances.</p>
+                    </div>
+                    <span id="recordCount" class="record-count">0 records</span>
+                </div>
+
+                <div class="filter-bar">
+                    <label class="search-field">
+                        <span aria-hidden="true">⌕</span>
+                        <input id="searchInput" type="search"
+                               placeholder="Search student, admission number..."
+                               aria-label="Search fee records">
+                    </label>
+
+                    <select id="classFilter" aria-label="Filter by class">
+                        <option value="">All classes</option>
+                    </select>
+
+                    <select id="statusFilter" aria-label="Filter by payment status">
+                        <option value="">All statuses</option>
+                        <option value="PAID">Paid</option>
+                        <option value="PARTIAL">Partially paid</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="OVERDUE">Overdue</option>
+                    </select>
+
+                    <button id="resetFiltersButton" class="button button-secondary"
+                            type="button">Reset</button>
+                </div>
+
+                <div id="tableLoading" class="state-message">Loading fee records...</div>
+
+                <div id="tableError" class="state-message error-state hidden">
+                    <p>Fee records could not be loaded.</p>
+                    <button id="retryButton" class="button button-secondary"
+                            type="button">Try again</button>
+                </div>
+
+                <div id="tableEmpty" class="state-message hidden">
+                    No fee records found. Fee records will appear here when available
+                    from the backend.
+                </div>
+
+                <div id="tableContainer" class="table-container hidden">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Class / Section</th>
+                            <th>Total Fee</th>
+                            <th>Paid</th>
+                            <th>Balance</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="feesTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="paginationInfo">Showing 0 records</span>
+                    <div class="pagination">
+                        <button id="previousPage" type="button"
+                                class="page-button" disabled>Previous</button>
+                        <span id="pageNumber">1</span>
+                        <button id="nextPage" type="button"
+                                class="page-button" disabled>Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel report-panel">
+                <div>
+                    <h3>Fee collection report</h3>
+                    <p>Export the currently filtered fee records to a CSV file.</p>
+                </div>
+                <button id="reportExportButton" class="button button-secondary"
+                        type="button">Download report</button>
+            </section>
+
+            <p class="page-note">
+                Fee figures are loaded from the backend. This page does not create
+                sample fee totals or payment records.
+            </p>
+        </section>
+    </main>
+</div>
+
+<!-- Record payment modal -->
+<div id="paymentModal" class="modal hidden" role="dialog"
+     aria-modal="true" aria-labelledby="paymentModalTitle">
+    <div class="modal-card">
+        <div class="modal-heading">
+            <div>
+                <p class="eyebrow">PAYMENT ENTRY</p>
+                <h2 id="paymentModalTitle">Record Payment</h2>
+            </div>
+            <button id="closePaymentModal" class="icon-button"
+                    type="button" aria-label="Close dialog">×</button>
+        </div>
+
+        <form id="paymentForm">
+            <label for="paymentStudent">Student fee record</label>
+            <select id="paymentStudent" required>
+                <option value="">Select a student</option>
+            </select>
+
+            <label for="paymentAmount">Payment amount (₹)</label>
+            <input id="paymentAmount" type="number" min="0.01"
+                   step="0.01" required placeholder="Enter amount">
+
+            <label for="paymentDate">Payment date</label>
+            <input id="paymentDate" type="date" required>
+
+            <label for="paymentMethod">Payment method</label>
+            <select id="paymentMethod" required>
+                <option value="">Select method</option>
+                <option value="CASH">Cash</option>
+                <option value="UPI">UPI</option>
+                <option value="BANK_TRANSFER">Bank transfer</option>
+                <option value="CARD">Card</option>
+                <option value="CHEQUE">Cheque</option>
+            </select>
+
+            <label for="paymentReference">Reference / receipt number</label>
+            <input id="paymentReference" type="text" maxlength="100"
+                   placeholder="Optional reference number">
+
+            <p id="paymentFormMessage" class="form-message hidden"
+               role="alert"></p>
+
+            <div class="modal-actions">
+                <button id="cancelPaymentButton" class="button button-secondary"
+                        type="button">Cancel</button>
+                <button id="savePaymentButton" class="button button-primary"
+                        type="submit">Save Payment</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
