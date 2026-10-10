@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers | Power School Admin Portal</title>
+  <link rel="stylesheet" href="../../css/admin-teachers.css">
+  <script src="../../js/admin-teachers.js" defer></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- SAME LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <a class="school-brand" href="dashboard.html">
+        <img class="school-logo" src="../../assets/school-logo.png"
+             alt="Power Public School logo">
+        <span>
+          <strong>Power School</strong>
+          <small>Management System</small>
+        </span>
+      </a>
+
+      <div class="sidebar-menu">
+        <p class="menu-heading">MAIN MENU</p>
+        <nav class="nav-list" id="navList" aria-label="Main menu">
+          <span class="nav-slider" id="navSlider"></span>
+
+          <a class="nav-link" href="dashboard.html">
+            <span class="nav-icon">⌂</span><span>Dashboard</span>
+          </a>
+          <a class="nav-link" href="students.html">
+            <span class="nav-icon">♟</span><span>Students</span>
+          </a>
+          <a class="nav-link active" href="teachers.html" aria-current="page">
+            <span class="nav-icon">♟</span><span>Teachers</span>
+          </a>
+          <a class="nav-link" href="classes.html">
+            <span class="nav-icon">▦</span><span>Classes &amp; Sections</span>
+          </a>
+
+          <p class="menu-heading secondary-heading">ACADEMICS</p>
+          <a class="nav-link" href="fees.html">
+            <span class="nav-icon">₹</span><span>Fees Management</span>
+          </a>
+          <a class="nav-link" href="attendance.html">
+            <span class="nav-icon">◷</span><span>Attendance Report</span>
+          </a>
+          <a class="nav-link" href="marks.html">
+            <span class="nav-icon">▤</span><span>Marks Report</span>
+          </a>
+          <a class="nav-link" href="announcements.html">
+            <span class="nav-icon">◇</span><span>Announcements</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="date-card">
+          <span class="date-icon">◷</span>
+          <div>
+            <strong id="dayName">Today</strong>
+            <small id="todayDate">Loading date...</small>
+          </div>
+        </div>
+        <button class="logout-button" id="logoutButton" type="button">
+          ↪ &nbsp; Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <div class="main-area">
+      <!-- SAME TOP BAR -->
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu"
+                type="button" aria-label="Toggle menu">☰</button>
+
+        <div class="portal-heading">
+          <span>POWER SCHOOL</span>
+          <h1>Admin Portal</h1>
+        </div>
+
+        <div class="topbar-right">
+          <button class="notification-button" type="button"
+                  aria-label="Notifications">♢<i></i></button>
+          <div class="admin-profile">
+            <div class="admin-avatar" id="adminInitial">S</div>
+            <div>
+              <strong id="adminName">School Administrator</strong>
+              <small>Administrator</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow">ADMINISTRATION</p>
+            <h2>Teacher Management</h2>
+            <p class="welcome-description">
+              Manage teacher profiles, departments, subjects and account status.
+            </p>
+          </div>
+          <button class="button button-primary" id="addTeacherButton" type="button">
+            <span>＋</span> Add Teacher
+          </button>
+        </section>
+
+        <section class="section-heading">
+          <h3>Teacher Overview</h3>
+          <p>Quick insights into your teaching staff.</p>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-icon blue">♟</div>
+            <div><span>Total Teachers</span><strong id="totalTeachers">—</strong><small>Registered teachers</small></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon purple">♙</div>
+            <div><span>Male Teachers</span><strong id="maleTeachers">—</strong><small>Staff overview</small></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon green">♙</div>
+            <div><span>Female Teachers</span><strong id="femaleTeachers">—</strong><small>Staff overview</small></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon orange">✓</div>
+            <div><span>Active Accounts</span><strong id="activeTeachers">—</strong><small>Enabled accounts</small></div>
+          </article>
+        </section>
+
+        <section class="section-heading directory-heading">
+          <div>
+            <h3>Teachers Directory</h3>
+            <p>Search staff and edit each profile individually.</p>
+          </div>
+          <span class="record-count" id="recordCount">Loading...</span>
+        </section>
+
+        <section class="directory-card">
+          <div class="filters">
+            <label class="filter-control">
+              <span>Department</span>
+              <select id="departmentFilter">
+                <option value="">All Departments</option>
+              </select>
+            </label>
+            <label class="filter-control">
+              <span>Subject</span>
+              <select id="subjectFilter">
+                <option value="">All Subjects</option>
+              </select>
+            </label>
+            <label class="filter-control search-control">
+              <span>Search teachers</span>
+              <input id="teacherSearch" type="search"
+                     placeholder="Name, teacher ID, email...">
+            </label>
+            <button class="button button-light" id="resetFilters" type="button">
+              Reset
+            </button>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Teacher</th>
+                  <th>Teacher ID</th>
+                  <th>Department</th>
+                  <th>Subject</th>
+                  <th>Qualification</th>
+                  <th>Account</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="teacherTableBody">
+                <tr><td colspan="7" class="table-message">Loading teachers...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="empty-state" id="emptyState" hidden>
+            <span>⌕</span>
+            <strong>No teachers found</strong>
+            <p>Try changing your search or filters.</p>
+          </div>
+        </section>
+
+        <section class="quote-card">
+          <span class="quote-symbol">“</span>
+          <div>
+            <p>Great teachers inspire curiosity, confidence and lifelong learning.</p>
+            <small>POWER PUBLIC SCHOOL</small>
+          </div>
+        </section>
+
+        <footer class="page-footer">Power Public School · Admin Portal</footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT MODAL -->
+  <div class="modal-backdrop" id="teacherModal" hidden>
+    <section class="teacher-modal" role="dialog" aria-modal="true"
+             aria-labelledby="modalTitle">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">TEACHER DETAILS</p>
+          <h2 id="modalTitle">Add Teacher</h2>
+        </div>
+        <button class="close-modal" id="closeModal" type="button"
+                aria-label="Close dialog">×</button>
+      </div>
+
+      <form id="teacherForm">
+        <input type="hidden" id="recordId">
+
+        <label class="form-field">
+          Full name
+          <input id="fullName" required maxlength="100" autocomplete="name">
+        </label>
+        <label class="form-field">
+          Teacher ID
+          <input id="teacherId" required maxlength="30">
+        </label>
+        <label class="form-field">
+          Email
+          <input id="teacherEmail" type="email" required maxlength="150"
+                 autocomplete="email">
+        </label>
+        <label class="form-field">
+          Department
+          <input id="teacherDepartment" required maxlength="80">
+        </label>
+        <label class="form-field">
+          Subject
+          <input id="teacherSubject" required maxlength="80">
+        </label>
+        <label class="form-field">
+          Qualification
+          <input id="teacherQualification" required maxlength="100">
+        </label>
+        <label class="form-field">
+          Gender
+          <select id="teacherGender">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label class="form-field">
+          Account status
+          <select id="teacherStatus">
+            <option value="ACTIVE">Active</option>
+            <option value="INACTIVE">Inactive</option>
+          </select>
+        </label>
+
+        <p class="form-message" id="formMessage" role="status"></p>
+        <div class="modal-actions">
+          <button class="button button-light" id="cancelModal" type="button">Cancel</button>
+          <button class="button button-primary" id="saveTeacher" type="submit">Save Teacher</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</body>
+</html>
