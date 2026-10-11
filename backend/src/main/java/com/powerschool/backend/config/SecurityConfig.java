@@ -1,4 +1,3 @@
-
 package com.powerschool.backend.config;
 
 import com.powerschool.backend.security.JwtAuthenticationFilter;
@@ -16,60 +15,34 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(
-            JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http)
-            throws Exception {
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Enable CORS configuration
             .cors(cors -> {})
-
-            // JWT-based API: CSRF is not required
             .csrf(csrf -> csrf.disable())
-
-            // No server-side sessions
             .sessionManagement(session ->
                 session.sessionCreationPolicy(
                     SessionCreationPolicy.STATELESS
                 )
             )
-
             .authorizeHttpRequests(auth -> auth
+                // Public authentication and health endpoints
+                .requestMatchers("/api/health", "/api/v1/auth/**", "/", "/*.html", "/css/**", "/js/**", "/assets/**").permitAll()
 
-                // Public endpoints
-                .requestMatchers(
-                    "/api/health",
-                    "/api/auth/login"
-                ).permitAll()
+                // Role-based route access mapping
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/teacher/**").hasAnyRole("ADMIN", "TEACHER")
+                .requestMatchers("/api/v1/student/**").hasAnyRole("ADMIN", "STUDENT")
 
-                // ADMIN
-                .requestMatchers("/api/admin/**")
-                .hasRole("ADMIN")
-
-                // TEACHER
-                .requestMatchers("/api/teacher/**")
-                .hasRole("TEACHER")
-
-                // STUDENT
-                .requestMatchers("/api/student/**")
-                .hasRole("STUDENT")
-
-                // All other endpoints require authentication
-                .anyRequest()
-                .authenticated()
+                // All other requests require authentication
+                .anyRequest().authenticated()
             )
-
-            // Disable browser authentication mechanisms
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
-
-            // JWT authentication filter
             .addFilterBefore(
                 jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class

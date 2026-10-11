@@ -73,9 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
    const API_ENDPOINTS = {
-    records: "/api/v1/admin/fees",
-    summary: "/api/v1/admin/fees/summary",
-    payments: "/api/v1/admin/fees/payments"
+    records: "/v1/admin/fees",
+    summary: "/v1/admin/fees/summary",
+    payments: "/v1/admin/fees/payments"
 };
 
     init();
