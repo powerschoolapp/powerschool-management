@@ -72,11 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
         savePaymentButton: $("savePaymentButton")
     };
 
-    const API_ENDPOINTS = {
-        records: "/admin/fees",
-        summary: "/admin/fees/summary",
-        payments: "/admin/fees/payments"
-    };
+   const API_ENDPOINTS = {
+    records: "/api/v1/admin/fees",
+    summary: "/api/v1/admin/fees/summary",
+    payments: "/api/v1/admin/fees/payments"
+};
 
     init();
 

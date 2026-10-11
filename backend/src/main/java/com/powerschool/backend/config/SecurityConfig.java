@@ -1,3 +1,4 @@
+
 package com.powerschool.backend.config;
 
 import com.powerschool.backend.security.JwtAuthenticationFilter;
